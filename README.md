@@ -49,7 +49,7 @@ You can change the listening port by pass this via -D option or via environment 
 
 Via environment variable:
 ```
-HTTP_SERVER_PORT=9090
+export HTTP_SERVER_PORT=9090
 java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
 

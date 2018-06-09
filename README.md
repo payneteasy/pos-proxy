@@ -3,6 +3,26 @@
 [![Build Status](https://travis-ci.org/payneteasy/pos-proxy.svg?branch=master)](https://travis-ci.org/payneteasy/pos-proxy)
 [![CircleCI](https://circleci.com/gh/payneteasy/pos-proxy.svg?style=svg)](https://circleci.com/gh/payneteasy/pos-proxy)
 
+## Run from docker
+
+### amd64
+
+```bash
+docker run -it -p 8081:8081/tcp  payneteasy/pos-proxy:amd64
+```
+
+### arm 64 v8 (Raspberry PI 3)
+
+```bash
+docker run -it -p 8081:8081/tcp  payneteasy/pos-proxy:arm64v8
+```
+
+### arm 32 v7 (Raspberry PI 1/2)
+
+```bash
+docker run -it -p 8081:8081/tcp  payneteasy/pos-proxy:arm32v7
+```
+
 ## Requirements
 
 * Java 1.8 (Oracle or OpenJDK)

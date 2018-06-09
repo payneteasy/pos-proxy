@@ -26,15 +26,15 @@
         <grpc.version>    1.8.0  </grpc.version>
 
         <jacoco.basedir>${project.basedir}/../target/coverage</jacoco.basedir>
-        
+
         <jacoco.version>0.8.0</jacoco.version>
-        
+
         <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
         <android.version>4.1.1.4</android.version>
-        
+
     </properties>
 
     <scm>
@@ -43,6 +43,20 @@
         <url>https://github.com/evsinev/pos-proxy.git</url>
         <tag>HEAD</tag>
   </scm>
+
+   <repositories>
+        <repository>
+            <id>reader-repo</id>
+            <name>reader repo</name>
+            <url>http://paynet-qa.clubber.me/reader/maven</url>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+    </repositories>
 
     <!--
         -      Distributions

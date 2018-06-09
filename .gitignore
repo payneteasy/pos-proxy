@@ -12,4 +12,3 @@ classes/
 gen-external-apklibs/
 .vertx
 .DS_Store
-.mvn

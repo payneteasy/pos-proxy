@@ -1,0 +1,38 @@
+swagger: '2.0'
+info:
+  title: Lounge Config Service
+  version: "1.0.1"
+
+host: 0.0.0.0:8081
+
+securityDefinitions:
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: X-API-Key
+security:
+  - APIKeyHeader: []
+  
+schemes:
+  - http
+  - https
+basePath: /pos-proxy
+produces:
+  - application/json
+
+paths:
+  /pay:
+    post:
+      tags: ['proxy']
+      summary: Make a payment
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: './messages/PaymentRequest.yaml'
+      responses:
+        200:
+          description: Status
+          schema:
+            $ref: './messages/PaymentResponse.yaml'

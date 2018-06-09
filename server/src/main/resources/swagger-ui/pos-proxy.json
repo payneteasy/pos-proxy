@@ -1,0 +1,95 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Lounge Config Service",
+    "version": "1.0.1"
+  },
+  "host": "0.0.0.0:8081",
+  "securityDefinitions": {
+    "APIKeyHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-Key"
+    }
+  },
+  "security": [
+    {
+      "APIKeyHeader": []
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/pos-proxy",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pay": {
+      "post": {
+        "tags": [
+          "proxy"
+        ],
+        "summary": "Make a payment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "title": "Payment Request",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "amount": {
+                  "type": "string",
+                  "description": "Amount",
+                  "example": "10.00"
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Currency",
+                  "example": "RUB"
+                },
+                "posType": {
+                  "type": "string",
+                  "enum": [
+                    "INPAS"
+                  ],
+                  "description": "POS terminal type",
+                  "example": "INPAS"
+                },
+                "posAddress": {
+                  "type": "string",
+                  "description": "POS terminal address",
+                  "example": "10.0.1.20:27015"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status",
+            "schema": {
+              "title": "Control Response",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "responseCode": {
+                  "type": "string",
+                  "description": "00 - Approved, other codes - errors"
+                },
+                "orderId": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -17,7 +17,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>
-        <reader.version>1.4-58</reader.version>
     </properties>
 
     <profiles>
@@ -40,6 +39,11 @@
         <dependency>
             <groupId>com.payneteasy.android.reader.readers</groupId>
             <artifactId>readers-common-rxtx-network</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.payneteasy.android.reader.readers</groupId>
+            <artifactId>readers-inpas</artifactId>
         </dependency>
 
         <dependency>
@@ -106,7 +110,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.payneteasy.robot.server.RobotApplication</mainClass>
+                            <mainClass>com.payneteasy.pos.proxy.PosProxyApplication</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>

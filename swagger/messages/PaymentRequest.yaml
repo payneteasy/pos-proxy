@@ -1,0 +1,27 @@
+title: "Payment Request"
+type: "object"
+additionalProperties: false
+properties:
+  amount:
+    type: "string"
+    description: "Amount"
+    example: "10.00"
+
+  currency:
+    type: "string"
+    description: "Currency"
+    example: "RUB"
+
+  posType:
+    type: "string"
+    enum:
+    - "INPAS"
+    description: "POS terminal type"
+    example: "INPAS"
+
+
+  posAddress:
+    type: "string"
+    description: "POS terminal address"
+    example: "10.0.1.20:27015"
+

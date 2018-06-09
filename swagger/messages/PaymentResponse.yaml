@@ -1,0 +1,13 @@
+title: "Control Response"
+type: "object"
+additionalProperties: false
+properties:
+  responseCode:
+    type: "string"
+    description: "00 - Approved, other codes - errors"
+
+  orderId:
+    type: "integer"
+    format: "int64"
+
+

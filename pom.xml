@@ -35,6 +35,7 @@
 
         <android.version>4.1.1.4</android.version>
 
+        <reader.version>1.4-59</reader.version>
     </properties>
 
     <scm>
@@ -113,6 +114,12 @@
                 <version>${reader.version}</version>
             </dependency>
             
+            <dependency>
+                <groupId>com.payneteasy.android.reader.readers</groupId>
+                <artifactId>readers-inpas</artifactId>
+                <version>${reader.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.payneteasy.android.reader.readers</groupId>
                 <artifactId>readers-common-rxtx-network</artifactId>

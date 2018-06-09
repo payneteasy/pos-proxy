@@ -27,6 +27,7 @@ java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 * Go to the http://0.0.0.0:8081/pos-proxy/swagger-ui
 
 Please see the video below:
+
 [![Swagger UI](https://img.youtube.com/vi/_A6wEbFHIOI/0.jpg)](https://youtu.be/_A6wEbFHIOI)
 
 ## How to generate a client code

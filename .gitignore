@@ -1,0 +1,15 @@
+classpath
+.project
+.settings/
+target/
+*.iml
+*.ipr
+*.iws
+*~
+.idea
+gen/
+classes/
+gen-external-apklibs/
+.vertx
+.DS_Store
+.mvn

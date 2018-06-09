@@ -34,8 +34,22 @@ swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.j
 
 ![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
 
-Where:
 * Client - a client code to start a payment
 * POS Proxy - this application
 * gate.payneteasy.com - Our authorisation server
 * Merchant site - we can make a callback to your server with a final order status
+
+## How to change a listening port
+
+You can change the listening port by pass this via -D option or via environment variable.
+
+Via environment variable:
+```
+HTTP_SERVER_PORT=9090
+java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+```
+
+Via -D option:
+```
+java -DHTTP_SERVER_PORT=9090 -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+```

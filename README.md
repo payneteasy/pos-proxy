@@ -9,14 +9,14 @@
 
 ## How to build and run
 
-```
+```bash
 ./mvnw clean package
 cd server/target && java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## How to run from release page
 
-```
+```bash
 wget https://github.com/payneteasy/pos-proxy/releases/download/1.0-1/server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
@@ -34,7 +34,8 @@ Please see the video below:
 
 * Install swagger-codegen from https://github.com/swagger-api/swagger-codegen
 * Run swagger-codegen with your language
-```
+
+```bash
 swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.json -l java
 ```
 
@@ -52,12 +53,12 @@ swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.j
 You can change the listening port by pass this via -D option or via environment variable.
 
 Via environment variable:
-```
+```bash
 export HTTP_SERVER_PORT=9090
 java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 Via -D option:
-```
+```bash
 java -DHTTP_SERVER_PORT=9090 -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```

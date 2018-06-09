@@ -29,3 +29,13 @@ java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
 swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.json -l java
 ```
+
+## Sequence diagram
+
+![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
+
+Where:
+* Client - a client code to start a payment
+* POS Proxy - this application
+* gate.payneteasy.com - Our authorisation server
+* Merchant site - we can make a callback to your server with a final order status

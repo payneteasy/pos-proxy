@@ -1,0 +1,11 @@
+language: java
+sudo: true # faster builds
+
+jdk:
+- oraclejdk8
+
+cache:
+  directories:
+  - $HOME/.m2
+
+script: "./mvnw clean install"

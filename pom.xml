@@ -144,6 +144,12 @@
                 <groupId>ru.odnoklassniki</groupId>
                 <artifactId>one-nio</artifactId>
                 <version>1.0.2</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun</groupId>
+                        <artifactId>tools</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             
             <dependency>

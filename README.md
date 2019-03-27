@@ -3,7 +3,18 @@
 [![Build Status](https://travis-ci.org/payneteasy/pos-proxy.svg?branch=master)](https://travis-ci.org/payneteasy/pos-proxy)
 [![CircleCI](https://circleci.com/gh/payneteasy/pos-proxy.svg?style=svg)](https://circleci.com/gh/payneteasy/pos-proxy)
 
-## Run from docker
+## How it works
+
+POS Proxy is a web server that redirects json requests to a POS terminal connected via USB.
+
+![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
+
+* Client - a client code to start a payment
+* POS Proxy - this application
+* gate.payneteasy.com - Our authorisation server
+* Merchant site - we can make a callback to your server with a final order status
+
+## Run it from docker
 
 ### amd64
 
@@ -58,15 +69,6 @@ Please see the video below:
 ```bash
 swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.json -l java
 ```
-
-## Sequence diagram
-
-![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
-
-* Client - a client code to start a payment
-* POS Proxy - this application
-* gate.payneteasy.com - Our authorisation server
-* Merchant site - we can make a callback to your server with a final order status
 
 ## How to change a listening port
 

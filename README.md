@@ -6,7 +6,7 @@
 ## How it works
 
 POS Proxy is a web server that redirects json requests to a POS terminal connected via USB.
-You can also use this example to see how to intagrate the Payneteasy mPOS SDK to your java application.
+You can also use this example to see how to integrate the Payneteasy mPOS SDK to your java application.
 
 ![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
 

@@ -6,6 +6,7 @@
 ## How it works
 
 POS Proxy is a web server that redirects json requests to a POS terminal connected via USB.
+You can also use this example to see how to intagrate the Payneteasy mPOS SDK to your java application.
 
 ![Sequence diagram](https://raw.githubusercontent.com/payneteasy/pos-proxy/master/doc/diagram.png)
 
@@ -13,6 +14,24 @@ POS Proxy is a web server that redirects json requests to a POS terminal connect
 * POS Proxy - this application
 * gate.payneteasy.com - Our authorisation server
 * Merchant site - we can make a callback to your server with a final order status
+
+## Swagger UI
+
+* Run the application
+* Go to the http://0.0.0.0:8081/pos-proxy/swagger-ui
+
+Please see the video below:
+
+[![Swagger UI](https://img.youtube.com/vi/_A6wEbFHIOI/0.jpg)](https://youtu.be/_A6wEbFHIOI)
+
+## How to generate a client code
+
+* Install swagger-codegen from https://github.com/swagger-api/swagger-codegen
+* Run swagger-codegen with your language
+
+```bash
+swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.json -l java
+```
 
 ## Run it from docker
 
@@ -50,24 +69,6 @@ cd server/target && java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```bash
 wget https://github.com/payneteasy/pos-proxy/releases/download/1.0-1/server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
-```
-
-## Swagger UI
-
-* Run the application
-* Go to the http://0.0.0.0:8081/pos-proxy/swagger-ui
-
-Please see the video below:
-
-[![Swagger UI](https://img.youtube.com/vi/_A6wEbFHIOI/0.jpg)](https://youtu.be/_A6wEbFHIOI)
-
-## How to generate a client code
-
-* Install swagger-codegen from https://github.com/swagger-api/swagger-codegen
-* Run swagger-codegen with your language
-
-```bash
-swagger-codegen generate -i http://0.0.0.0:8081/pos-proxy/swagger-ui/pos-proxy.json -l java
 ```
 
 ## How to change a listening port

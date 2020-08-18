@@ -85,3 +85,11 @@ Via -D option:
 ```bash
 java -DHTTP_SERVER_PORT=9090 -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
+
+## How to connect to a Verifone terminal via USB cable
+
+Run socat program to listen 27016 tcp port and redirects all tcp packets to a tty device.
+
+```bash
+socat -d -d -v -x tcp4-listen:27015,reuseaddr,fork file:/dev/ttyACM0,nonblock,echo=0,raw
+```

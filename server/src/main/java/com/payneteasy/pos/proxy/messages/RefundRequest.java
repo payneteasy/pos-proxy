@@ -4,10 +4,15 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class PaymentRequest {
+public class RefundRequest {
 
     @NonNull
-    private final String amount;
+    private final String refundAmount;
+
+    /**
+     * Paynet order id to refund
+     */
+    private final long orderId;
 
     @NonNull
     private final String currency;

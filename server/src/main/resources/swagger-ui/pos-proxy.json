@@ -90,6 +90,75 @@
           }
         }
       }
+    },
+    "/refund": {
+      "post": {
+        "tags": [
+          "proxy"
+        ],
+        "summary": "Make a refund",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "title": "Refund Request",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "refundAmount": {
+                  "type": "string",
+                  "description": "Refund amount",
+                  "example": "10.00"
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Currency",
+                  "example": "RUB"
+                },
+                "orderId": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "posType": {
+                  "type": "string",
+                  "enum": [
+                    "INPAS"
+                  ],
+                  "description": "POS terminal type",
+                  "example": "INPAS"
+                },
+                "posAddress": {
+                  "type": "string",
+                  "description": "POS terminal address",
+                  "example": "10.0.1.20:27015"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status",
+            "schema": {
+              "title": "Control Response",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "responseCode": {
+                  "type": "string",
+                  "description": "00 - Approved, other codes - errors"
+                },
+                "orderId": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

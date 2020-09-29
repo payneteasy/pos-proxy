@@ -35,7 +35,7 @@
 
         <android.version>4.1.1.4</android.version>
 
-        <reader.version>1.4-59</reader.version>
+        <reader.version>1.4-90</reader.version>
     </properties>
 
     <scm>
@@ -209,6 +209,13 @@
                 <artifactId>mockito-core</artifactId>
                 <version>1.10.19</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.12</version>
+                <scope>provided</scope>
             </dependency>
 
         </dependencies>

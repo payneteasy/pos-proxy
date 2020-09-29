@@ -1,12 +1,23 @@
 package com.payneteasy.pos.proxy.messages;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
+@Builder
 public class PaymentResponse {
 
-    public String amount;
-    public String currency;
 
-    public String responseCode;
+    @NonNull
+    private final String amount;
 
-    public Long   orderId;
+    @NonNull
+    private final String currency;
+
+    @NonNull
+    private final String responseCode;
+
+    private final Long orderId;
 
 }

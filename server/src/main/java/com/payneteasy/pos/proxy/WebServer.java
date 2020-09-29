@@ -2,6 +2,7 @@ package com.payneteasy.pos.proxy;
 
 import com.payneteasy.pos.proxy.messages.PaymentRequest;
 import com.payneteasy.pos.proxy.messages.PaymentResponse;
+import com.payneteasy.pos.proxy.messages.RefundRequest;
 import one.nio.http.*;
 import one.nio.server.AcceptorConfig;
 import one.nio.util.ByteArrayBuilder;
@@ -61,6 +62,27 @@ public class WebServer extends HttpServer {
                 JsonMessages    json     = new JsonMessages(aRequest);
                 PaymentRequest  request  = json.parse(PaymentRequest.class);
                 PaymentResponse response = paymentService.pay(request);
+                aSession.sendResponse(json.response(response));
+            } catch (Exception e) {
+                sendError("Error while processing pay", aSession, e);
+            }
+        });
+    }
+
+    @Path("/pos-proxy/refund")
+    public void refund(Request aRequest, HttpSession aSession) throws IOException {
+        PAYMENT_EXECUTOR.execute(() -> {
+            try {
+                String apiKey = aRequest.getHeader("X-API-Key");
+
+                if(!EXPECTED_API_KEY.equals(apiKey)) {
+                    LOG.error("Expected X-API-Key is '{}' but was '{}'", EXPECTED_API_KEY, apiKey);
+                    aSession.sendError(Response.FORBIDDEN, "Wrong X-API-Key");
+                    return;
+                }
+                JsonMessages    json     = new JsonMessages(aRequest);
+                RefundRequest  request   = json.parse(RefundRequest.class);
+                PaymentResponse response = paymentService.refund(request);
                 aSession.sendResponse(json.response(response));
             } catch (Exception e) {
                 sendError("Error while processing pay", aSession, e);

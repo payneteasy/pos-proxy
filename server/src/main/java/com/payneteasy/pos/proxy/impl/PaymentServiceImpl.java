@@ -1,17 +1,14 @@
 package com.payneteasy.pos.proxy.impl;
 
-import com.payneteasy.android.sdk.reader.inpas.config.InpasTerminalConfiguration;
-import com.payneteasy.android.sdk.reader.inpas.config.InpasTerminalPacketOptions;
-import com.payneteasy.android.sdk.reader.inpas.network.InpasNetworkClient;
 import com.payneteasy.inpas.sa.messages.sale.Sa1PaymentResponse;
-import com.payneteasy.inpas.sa.network.handlers.DefaultClientPacketOptions;
+import com.payneteasy.inpas.sa.messages.sale.Sa29ReversalResponse;
 import com.payneteasy.pos.proxy.IPaymentService;
 import com.payneteasy.pos.proxy.messages.PaymentRequest;
 import com.payneteasy.pos.proxy.messages.PaymentResponse;
+import com.payneteasy.pos.proxy.messages.RefundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 public class PaymentServiceImpl implements IPaymentService {
@@ -20,46 +17,44 @@ public class PaymentServiceImpl implements IPaymentService {
 
     @Override
     public PaymentResponse pay(PaymentRequest aRequest) {
-        InpasNetworkClient client = new InpasNetworkClient(aRequest.posAddress, new InpasTerminalConfiguration.Builder()
-                .packetOptions(new DefaultClientPacketOptions())
-                .throwExceptionIfCannotConnect(true)
-                .build()
-        );
-        try {
-            client.connect();
-            try {
-                Sa1PaymentResponse saResponse = client.makeSale(aRequest.currency, new BigDecimal(aRequest.amount));
+        InpasNetworkManager manager = new InpasNetworkManager(aRequest.getAmount(), aRequest.getCurrency(), aRequest.getPosAddress());
 
-                PaymentResponse response = new PaymentResponse();
-                response.amount       = saResponse.get_00_amount().toString();
-                response.currency     = "RUB";
-                response.orderId      = getPaynetOrderId(saResponse);
-                response.responseCode = saResponse.get_15_responseCode();
-                return response;
+        return manager.makeOperation(aClient -> {
+            Sa1PaymentResponse saResponse = aClient.makeSale(aRequest.getCurrency(), new BigDecimal(aRequest.getAmount()));
 
-            } catch (Exception e) {
-                client.sendEot();
-                LOG.error("Cannot process a payment", e);
-                return error(aRequest, "-1");
-            } finally {
-                client.closeConnection();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("Interrupted");
-        } catch (Exception e) {
-            LOG.error("Cannot connect", e);
-            return error(aRequest, "-2");
-        }
+            return PaymentResponse.builder()
+                    .amount       ( saResponse.get_00_amount().toString()     )
+                    .currency     ( aRequest.getCurrency()                    )
+                    .orderId      ( getPaynetOrderId(saResponse)              )
+                    .responseCode ( saResponse.get_15_responseCode()          )
+                    .build();
+        });
     }
 
-    private PaymentResponse error(PaymentRequest aRequest, String aErrorCode) {
-        PaymentResponse response = new PaymentResponse();
-        response.amount       = aRequest.amount;
-        response.currency     = "RUB";
-        response.orderId      = null;
-        response.responseCode = aErrorCode;
-        return response;
+    @Override
+    public PaymentResponse refund(RefundRequest aRequest) {
+        InpasNetworkManager manager = new InpasNetworkManager(aRequest.getRefundAmount(), aRequest.getCurrency(), aRequest.getPosAddress());
+
+        return manager.makeOperation(aClient -> {
+            Sa29ReversalResponse saResponse = aClient.makeReversal(aRequest.getCurrency(), new BigDecimal(aRequest.getRefundAmount()), toRrn(aRequest.getOrderId()));
+
+            return PaymentResponse.builder()
+                    .amount       ( saResponse.get_00_amount().toString()     )
+                    .currency     ( aRequest.getCurrency()                    )
+                    .orderId      ( aRequest.getOrderId()                     )
+                    .responseCode ( saResponse.get_15_responseCode()          )
+                    .build();
+        });
+    }
+
+    public static String toRrn(long aOrderId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(aOrderId);
+        while(sb.length() < 11) {
+            sb.insert(0, "0");
+        }
+        sb.insert(0, "P");
+        return sb.toString();
     }
 
     private Long getPaynetOrderId(Sa1PaymentResponse saResponse) {

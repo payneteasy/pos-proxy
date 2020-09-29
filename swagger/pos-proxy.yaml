@@ -36,3 +36,19 @@ paths:
           description: Status
           schema:
             $ref: './messages/PaymentResponse.yaml'
+
+  /refund:
+    post:
+      tags: ['proxy']
+      summary: Make a refund
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: './messages/RefundRequest.yaml'
+      responses:
+        200:
+          description: Status
+          schema:
+            $ref: './messages/PaymentResponse.yaml'

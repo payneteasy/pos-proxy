@@ -3,9 +3,7 @@ package com.payneteasy.pos.proxy.impl;
 import com.payneteasy.inpas.sa.messages.sale.Sa1PaymentResponse;
 import com.payneteasy.inpas.sa.messages.sale.Sa29ReversalResponse;
 import com.payneteasy.pos.proxy.IPaymentService;
-import com.payneteasy.pos.proxy.messages.PaymentRequest;
-import com.payneteasy.pos.proxy.messages.PaymentResponse;
-import com.payneteasy.pos.proxy.messages.RefundRequest;
+import com.payneteasy.pos.proxy.messages.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +43,20 @@ public class PaymentServiceImpl implements IPaymentService {
                     .responseCode ( saResponse.get_15_responseCode()          )
                     .build();
         });
+    }
+
+    @Override
+    public CloseDayResponse closeDay(CloseDayRequest aRequest) {
+        InpasNetworkManager manager = new InpasNetworkManager("0", "RUB", aRequest.getPosAddress());
+
+        PaymentResponse response = manager.makeOperation(aClient -> {
+            aClient.makeReconciliation();
+            return PaymentResponse.builder()
+                    .responseCode("00")
+                    .build();
+        });
+
+        return new CloseDayResponse(response.getResponseCode());
     }
 
     public static String toRrn(long aOrderId) {

@@ -1,0 +1,8 @@
+title: "Close Day Response"
+type: "object"
+additionalProperties: false
+properties:
+  responseCode:
+    type: "string"
+    description: "00 - Approved, other codes - errors"
+

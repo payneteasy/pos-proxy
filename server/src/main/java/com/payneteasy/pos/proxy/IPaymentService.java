@@ -1,8 +1,6 @@
 package com.payneteasy.pos.proxy;
 
-import com.payneteasy.pos.proxy.messages.PaymentRequest;
-import com.payneteasy.pos.proxy.messages.PaymentResponse;
-import com.payneteasy.pos.proxy.messages.RefundRequest;
+import com.payneteasy.pos.proxy.messages.*;
 
 public interface IPaymentService {
 
@@ -10,4 +8,5 @@ public interface IPaymentService {
 
     PaymentResponse refund(RefundRequest aRequest);
 
+    CloseDayResponse closeDay(CloseDayRequest aRequest);
 }

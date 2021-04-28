@@ -1,8 +1,6 @@
 package com.payneteasy.pos.proxy;
 
-import com.payneteasy.pos.proxy.messages.PaymentRequest;
-import com.payneteasy.pos.proxy.messages.PaymentResponse;
-import com.payneteasy.pos.proxy.messages.RefundRequest;
+import com.payneteasy.pos.proxy.messages.*;
 import one.nio.http.*;
 import one.nio.server.AcceptorConfig;
 import one.nio.util.ByteArrayBuilder;
@@ -52,11 +50,7 @@ public class WebServer extends HttpServer {
     public void pay(Request aRequest, HttpSession aSession) throws IOException {
         PAYMENT_EXECUTOR.execute(() -> {
             try {
-                String apiKey = aRequest.getHeader("X-API-Key");
-
-                if(!EXPECTED_API_KEY.equals(apiKey)) {
-                    LOG.error("Expected X-API-Key is '{}' but was '{}'", EXPECTED_API_KEY, apiKey);
-                    aSession.sendError(Response.FORBIDDEN, "Wrong X-API-Key");
+                if (!checkApiKey(aRequest, aSession)) {
                     return;
                 }
                 JsonMessages    json     = new JsonMessages(aRequest);
@@ -73,11 +67,7 @@ public class WebServer extends HttpServer {
     public void refund(Request aRequest, HttpSession aSession) throws IOException {
         PAYMENT_EXECUTOR.execute(() -> {
             try {
-                String apiKey = aRequest.getHeader("X-API-Key");
-
-                if(!EXPECTED_API_KEY.equals(apiKey)) {
-                    LOG.error("Expected X-API-Key is '{}' but was '{}'", EXPECTED_API_KEY, apiKey);
-                    aSession.sendError(Response.FORBIDDEN, "Wrong X-API-Key");
+                if (!checkApiKey(aRequest, aSession)) {
                     return;
                 }
                 JsonMessages    json     = new JsonMessages(aRequest);
@@ -89,6 +79,37 @@ public class WebServer extends HttpServer {
             }
         });
     }
+
+    @Path("/pos-proxy/close-day")
+    public void closeDay(Request aRequest, HttpSession aSession) throws IOException {
+        PAYMENT_EXECUTOR.execute(() -> {
+            try {
+                if (!checkApiKey(aRequest, aSession)) {
+                    return;
+                }
+                JsonMessages     json     = new JsonMessages(aRequest);
+                CloseDayRequest  request  = json.parse(CloseDayRequest.class);
+                CloseDayResponse response = paymentService.closeDay(request);
+                aSession.sendResponse(json.response(response));
+            } catch (Exception e) {
+                sendError("Error while processing pay", aSession, e);
+            }
+        });
+    }
+
+    private boolean checkApiKey(Request aRequest, HttpSession aSession) throws IOException {
+        String apiKey = aRequest.getHeader("X-API-Key");
+
+        if(EXPECTED_API_KEY.equals(apiKey)) {
+            return true;
+        } else {
+            LOG.error("Expected X-API-Key is '{}' but was '{}'", EXPECTED_API_KEY, apiKey);
+            aSession.sendError(Response.FORBIDDEN, "Wrong X-API-Key");
+            return false;
+
+        }
+    }
+
 
     @Override
     public void handleDefault(Request aRequest, HttpSession aSession) throws IOException {

@@ -52,3 +52,19 @@ paths:
           description: Status
           schema:
             $ref: './messages/PaymentResponse.yaml'
+
+  /close-day:
+    post:
+      tags: ['proxy']
+      summary: Close day
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: './messages/CloseDayRequest.yaml'
+      responses:
+        200:
+          description: Status
+          schema:
+            $ref: './messages/CloseDayResponse.yaml'

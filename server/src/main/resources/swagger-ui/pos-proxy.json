@@ -159,6 +159,57 @@
           }
         }
       }
+    },
+    "/close-day": {
+      "post": {
+        "tags": [
+          "proxy"
+        ],
+        "summary": "Close day",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "title": "Close Day Request",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "posType": {
+                  "type": "string",
+                  "enum": [
+                    "INPAS"
+                  ],
+                  "description": "POS terminal type",
+                  "example": "INPAS"
+                },
+                "posAddress": {
+                  "type": "string",
+                  "description": "POS terminal address",
+                  "example": "10.0.1.20:27015"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status",
+            "schema": {
+              "title": "Close Day Response",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "responseCode": {
+                  "type": "string",
+                  "description": "00 - Approved, other codes - errors"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

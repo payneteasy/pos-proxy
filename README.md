@@ -1,8 +1,5 @@
 # pos-proxy
 
-[![Build Status](https://travis-ci.org/payneteasy/pos-proxy.svg?branch=master)](https://travis-ci.org/payneteasy/pos-proxy)
-[![CircleCI](https://circleci.com/gh/payneteasy/pos-proxy.svg?style=svg)](https://circleci.com/gh/payneteasy/pos-proxy)
-
 ## How it works
 
 POS Proxy is a web server that redirects json requests to a POS terminal connected via USB.
@@ -61,13 +58,13 @@ docker run -it -p 8081:8081/tcp  payneteasy/pos-proxy:arm32v7
 
 ```bash
 ./mvnw clean package
-cd server/target && java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+cd server/target && java -jar server-1.3-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## How to run from release page
 
 ```bash
-wget https://github.com/payneteasy/pos-proxy/releases/download/1.0-1/server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+wget https://github.com/payneteasy/pos-proxy/releases/download/1.3.0/pos-proxy-1.3.0.jar
 java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
@@ -78,12 +75,12 @@ You can change the listening port by pass this via -D option or via environment 
 Via environment variable:
 ```bash
 export HTTP_SERVER_PORT=9090
-java -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+java -jar server-1.3-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 Via -D option:
 ```bash
-java -DHTTP_SERVER_PORT=9090 -jar server-1.0-1-SNAPSHOT-jar-with-dependencies.jar
+java -DHTTP_SERVER_PORT=9090 -jar server-1.3-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## How to connect to a Verifone terminal via USB cable

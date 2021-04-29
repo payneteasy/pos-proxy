@@ -53,6 +53,8 @@ public class PaymentServiceImpl implements IPaymentService {
             aClient.makeReconciliation();
             return PaymentResponse.builder()
                     .responseCode("00")
+                    .currency("RUB")
+                    .amount("0")
                     .build();
         });
 

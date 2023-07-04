@@ -24,11 +24,11 @@ public class InpasNetworkManager {
     }
 
     public interface IInpasOperationHandler {
-        PaymentResponse invokeOperation(InpasNetworkClient aClient) throws IOException;
+        PaymentResponse invokeOperation(InpasNetworkClientExtended aClient) throws IOException;
     }
 
     public PaymentResponse makeOperation(IInpasOperationHandler aHandler) {
-        InpasNetworkClient client = new InpasNetworkClient(posAddress, new InpasTerminalConfiguration.Builder()
+        InpasNetworkClientExtended client = new InpasNetworkClientExtended(posAddress, new InpasTerminalConfiguration.Builder()
                 .packetOptions(new DefaultClientPacketOptions())
                 .throwExceptionIfCannotConnect(true)
                 .build()

@@ -12,4 +12,6 @@ public class CloseDayRequest {
     @NonNull
     private final String posType;
 
+    private final String terminalId;
+
 }

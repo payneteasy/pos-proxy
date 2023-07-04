@@ -23,4 +23,5 @@ public class RefundRequest {
     @NonNull
     private final String posType;
 
+    private final String terminalId;
 }

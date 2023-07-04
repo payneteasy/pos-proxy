@@ -18,7 +18,11 @@ public class PaymentServiceImpl implements IPaymentService {
         InpasNetworkManager manager = new InpasNetworkManager(aRequest.getAmount(), aRequest.getCurrency(), aRequest.getPosAddress());
 
         return manager.makeOperation(aClient -> {
-            Sa1PaymentResponse saResponse = aClient.makeSale(aRequest.getCurrency(), new BigDecimal(aRequest.getAmount()));
+            Sa1PaymentResponse saResponse = aClient.makeSale(
+                    aRequest.getCurrency()
+                    , new BigDecimal(aRequest.getAmount())
+                    , aRequest.getTerminalId()
+            );
 
             return PaymentResponse.builder()
                     .amount       ( saResponse.get_00_amount().toString()     )
@@ -34,7 +38,12 @@ public class PaymentServiceImpl implements IPaymentService {
         InpasNetworkManager manager = new InpasNetworkManager(aRequest.getRefundAmount(), aRequest.getCurrency(), aRequest.getPosAddress());
 
         return manager.makeOperation(aClient -> {
-            Sa29ReversalResponse saResponse = aClient.makeReversal(aRequest.getCurrency(), new BigDecimal(aRequest.getRefundAmount()), toRrn(aRequest.getOrderId()));
+            Sa29ReversalResponse saResponse = aClient.makeReversal(
+                    aRequest.getCurrency()
+                    , new BigDecimal(aRequest.getRefundAmount())
+                    , toRrn(aRequest.getOrderId())
+                    , aRequest.getTerminalId()
+            );
 
             return PaymentResponse.builder()
                     .amount       ( saResponse.get_00_amount().toString()     )
@@ -50,7 +59,7 @@ public class PaymentServiceImpl implements IPaymentService {
         InpasNetworkManager manager = new InpasNetworkManager("0", "RUB", aRequest.getPosAddress());
 
         PaymentResponse response = manager.makeOperation(aClient -> {
-            aClient.makeReconciliation();
+            aClient.makeReconciliation(aRequest.getTerminalId());
             return PaymentResponse.builder()
                     .responseCode("00")
                     .currency("RUB")

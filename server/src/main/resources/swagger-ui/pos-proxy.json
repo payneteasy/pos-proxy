@@ -64,6 +64,11 @@
                   "type": "string",
                   "description": "POS terminal address",
                   "example": "10.0.1.20:27015"
+                },
+                "terminalId": {
+                  "type": "string",
+                  "description": "Terminal ID",
+                  "example": "3A123456"
                 }
               }
             }
@@ -133,6 +138,11 @@
                   "type": "string",
                   "description": "POS terminal address",
                   "example": "10.0.1.20:27015"
+                },
+                "terminalId": {
+                  "type": "string",
+                  "description": "Terminal ID",
+                  "example": "3A123456"
                 }
               }
             }
@@ -188,6 +198,11 @@
                   "type": "string",
                   "description": "POS terminal address",
                   "example": "10.0.1.20:27015"
+                },
+                "terminalId": {
+                  "type": "string",
+                  "description": "Terminal ID",
+                  "example": "3A123456"
                 }
               }
             }

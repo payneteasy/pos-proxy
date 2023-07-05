@@ -27,7 +27,7 @@ public class PaymentServiceImpl implements IPaymentService {
             return PaymentResponse.builder()
                     .amount       ( saResponse.get_00_amount().toString()     )
                     .currency     ( aRequest.getCurrency()                    )
-                    .orderId      ( getPaynetOrderId(saResponse)              )
+                    .orderId      ( saResponse.get_14_rrn()                   )
                     .responseCode ( saResponse.get_15_responseCode()          )
                     .build();
         });
@@ -41,7 +41,7 @@ public class PaymentServiceImpl implements IPaymentService {
             Sa29ReversalResponse saResponse = aClient.makeReversal(
                     aRequest.getCurrency()
                     , new BigDecimal(aRequest.getRefundAmount())
-                    , toRrn(aRequest.getOrderId())
+                    , aRequest.getOrderId()
                     , aRequest.getTerminalId()
             );
 

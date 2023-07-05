@@ -12,7 +12,7 @@ public class RefundRequest {
     /**
      * Paynet order id to refund
      */
-    private final long orderId;
+    private final String orderId;
 
     @NonNull
     private final String currency;

@@ -18,6 +18,6 @@ public class PaymentResponse {
     @NonNull
     private final String responseCode;
 
-    private final Long orderId;
+    private final String orderId;
 
 }
